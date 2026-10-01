@@ -9,13 +9,18 @@ namespace TodoApp.Models
     internal class TodoModel
     {
         public DateTime CreationDate { get; set; } = DateTime.Now;
-		private bool myVar;
+		private bool _isDone;
+        private string _text;
 
-		public bool MyProperty
+        public bool MyProperty
 		{
-			get { return myVar; }
-			set { myVar = value; }
+			get { return _isDone; }
+			set { _isDone = value; }
 		}
-
+		public string Text
+		{
+			get { return _text; }
+			set { _text = value; }
+		}
 	}
 }

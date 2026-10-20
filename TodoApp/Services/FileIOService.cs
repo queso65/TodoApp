@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,11 @@ namespace TodoApp.Services
 
         public void SaveData(BindingList<TodoModel> todoDataList)
         {
+            using (StreamWriter writer = new StreamWriter(PATH))
+            {
+                string output  = JsonConvert.SerializeObject(todoDataList);
+                writer.Write(output);
+            }
             
         }
     }

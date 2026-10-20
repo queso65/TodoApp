@@ -19,7 +19,17 @@ namespace TodoApp.Services
             PATH = path;
         }
         public BindingList<TodoModel> LoadData() {
-            return null;
+            var fileExists = File.Exists(PATH);
+            if(!fileExists)
+            {
+                File.CreateText(PATH).Dispose();
+                return new BindingList<TodoModel>();
+            }
+            using (var render = File.OpenText(PATH))
+            {
+                var fileText = render.ReadToEnd();
+                return JsonConvert.DeserializeObject<BindingList<TodoModel>>(fileText);
+            }
         }
 
         public void SaveData(BindingList<TodoModel> todoDataList)

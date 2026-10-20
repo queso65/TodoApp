@@ -22,7 +22,7 @@ namespace TodoApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private BindingList<TodoModel> _todoData;
+        private BindingList<TodoModel> _todoDataList;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,13 +30,22 @@ namespace TodoApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _todoData = new BindingList<TodoModel>()
+            _todoDataList = new BindingList<TodoModel>()
             {
                 new TodoModel() { Text = "Task 1"},
                 new TodoModel() { Text = "Task 2"}
             };
 
-            dgTodoList.ItemsSource = _todoData;
+            dgTodoList.ItemsSource = _todoDataList;
+            _todoDataList.ListChanged += _todoDataList_ListChanged;
+        }
+
+        private void _todoDataList_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if(e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType == ListChangedType.ItemDeleted || e.ListChangedType == ListChangedType.ItemChanged)
+            {
+                var newItem = _todoDataList[e.NewIndex];
+            }
         }
     }
 }
